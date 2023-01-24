@@ -22,7 +22,10 @@ const CreatePost = ({ isAuth }: { isAuth: boolean }) => {
     await addDoc(postRef, {
       title,
       post,
-      auth: { name: auth.currentUser?.displayName, id: auth.currentUser?.uid },
+      author: {
+        name: auth.currentUser?.displayName,
+        id: auth.currentUser?.uid,
+      },
     });
     navigate('/');
   };

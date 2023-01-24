@@ -4,12 +4,14 @@ import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
 import About from './pages/About';
 import Login from './pages/Login';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { signOut } from '@firebase/auth';
 import { auth } from './config';
 
 function App() {
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = useState<boolean>(
+    Boolean(localStorage.getItem('isAuth'))
+  );
 
   const signUserOut = () => {
     signOut(auth).then(() => {
@@ -33,7 +35,7 @@ function App() {
         )}
       </nav>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home isAuth={isAuth} />} />
         <Route path='/about' element={<About />} />
         <Route path='/createpost' element={<CreatePost isAuth={isAuth} />} />
         <Route path='/login' element={<Login setIsAuth={setIsAuth} />} />
